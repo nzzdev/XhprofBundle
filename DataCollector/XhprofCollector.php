@@ -41,7 +41,7 @@ class XhprofCollector extends DataCollector
 
         if ($this->logger)
         {
-            $this->logger->debug('Disabled XHProf');
+            $this->logger->debug('Stopped collecting data with XHProf for current request');
         }
 
         $xhprof_runs = new XHProfRuns_Default('/tmp');
