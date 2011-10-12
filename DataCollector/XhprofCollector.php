@@ -45,7 +45,7 @@ class XhprofCollector extends DataCollector
         }
 
         $xhprof_runs = new XHProfRuns_Default();
-        $run_id = $xhprof_runs->save_run($xhprof_data, "Symfony");
+        $run_id = $xhprof_runs->save_run($xhprof_data, $request->attributes['_route']);
         
         $this->data = array(
             'xhprof' => $run_id,
