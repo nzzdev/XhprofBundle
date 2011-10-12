@@ -21,10 +21,12 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 class RequestListener
 {
     protected $logger;
+    protected $apc_key;
 
-    public function __construct(LoggerInterface $logger = null)
+    public function __construct(LoggerInterface $logger = null, $apc_key)
     {
         $this->logger = $logger;
+        $this->apc_key = $apc_key;
     }
 
     public function onCoreRequest(GetResponseEvent $event)
@@ -43,6 +45,13 @@ class RequestListener
 
     protected function enableXhprof()
     {
-        return true;
+        if (function_exists('apc_fetch'))
+        {
+            return true === apc_fetch($this->apc_key);
+        }
+        else
+        {
+            return false;
+        }
     }
 }
