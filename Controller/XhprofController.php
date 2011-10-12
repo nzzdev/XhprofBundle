@@ -21,7 +21,7 @@ class XhprofController
 
         if (function_exists('apc_store'))
         {
-            if (true === apc_store($this->apc_key, (bool) $enable, $ttl))
+            if (true === apc_store($this->apc_key, $enable, $ttl))
             {
                 $content = "XHProf enabled via APC.";
             } 
@@ -35,6 +35,6 @@ class XhprofController
             $content = "Can't enable XHProf via APC.";
         }
         
-        return new Response($content, array('Content-Type' => 'text/plain'));
+        return new Response($content);
     }
 }
