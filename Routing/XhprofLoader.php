@@ -17,7 +17,7 @@ class XhprofLoader extends Loader
     public function load($resource, $type = null)
     {
         $collection = new RouteCollection();
-        $collection->add('enable_xhprof', new Route('/xhprof/enable', array(
+        $collection->add('enable_xhprof', new Route('/xhprof', array(
             '_controller' => 'XhprofBundle:Xhprof:activate',
         ), array('_method' => 'GET')));
         
