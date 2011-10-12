@@ -30,11 +30,19 @@ class RequestListener
     public function onCoreRequest(GetResponseEvent $event)
     {
         if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {
-            xhprof_enable();
+            if ($this->enableXhprof())
+            {
+                xhprof_enable();
+            }
             if ($this->logger)
             {
                 $this->logger->debug('Enabled XHProf');
             }
         }
+    }
+
+    protected function enableXhprof()
+    {
+        return true;
     }
 }
