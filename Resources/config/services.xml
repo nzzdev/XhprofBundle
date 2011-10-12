@@ -9,14 +9,28 @@
     </parameters>
 
     <services>
+        <!--  Request Listener -->
         <service id="xhprof_listener" class="Jns\Bundle\XhprofBundle\RequestListener">
             <tag name="kernel.event_listener" event="kernel.request" method="onCoreRequest" priority="0" />
-            <argument type="service" id="logger" on-invalid="null" />
+            <argument>%jns.xhprof.apc_key%</argument>
         </service>
+
+        <!--  Data Collector -->
         <service id="data_collector.xhprof" class="Jns\Bundle\XhprofBundle\DataCollector\XhprofCollector">
             <tag name="data_collector" template="JnsXhprofBundle:Collector:xhprof" id="xhprof" />
             <argument type="service" id="service_container" />
             <argument type="service" id="logger" on-invalid="null" />
         </service>
+
+        <!--  Controller used to enable/disable XHProf -->
+        <service id="xhprof.controller" class="Jns\Bundle\XhprofBundle\Controller\XhprofController">
+            <argument>%jns.xhprof.apc_key%</argument>
+        </service>
+
+        <!-- Routes Loader -->
+        <service id="xhprof.routing.loader" class="Jns\Bundle\XhprofBundle\Routing\XhprofLoader">
+            <tag name="routing.loader" />
+        </service>
+
     </services>
 </container>
