@@ -12,6 +12,7 @@
         <!--  Request Listener -->
         <service id="xhprof_listener" class="Jns\Bundle\XhprofBundle\RequestListener">
             <tag name="kernel.event_listener" event="kernel.request" method="onCoreRequest" priority="0" />
+            <argument type="service" id="logger" on-invalid="null" />
             <argument>%jns.xhprof.apc_key%</argument>
         </service>
 
