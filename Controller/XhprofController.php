@@ -14,8 +14,11 @@ class XhprofController
         $this->apc_key = $apc_key;
     }
 
-    public function activateAction(Request $request, $enable = true, $ttl = 0)
+    public function activateAction(Request $request)
     {
+        $enable = $request->query->get('enable', true);
+        $ttl = $request->query->get('ttl', 0);
+
         if (function_exists('apc_store'))
         {
             if (true === apc_store($this->apc_key, (bool) $enable, $ttl))
