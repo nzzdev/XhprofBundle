@@ -73,3 +73,18 @@ defining the following settings in your config. The config is usually located at
 [1]: http://mirror.facebook.net/facebook/xhprof/doc.html
 [2]: http://www.macports.org/
 
+### Enable XHProf via web
+
+To be able to enable XHProf via web you need to have APC installed. Then you can add the following to your routing configuration.
+
+_xhprof:
+    resource: "@JnsXhprofBundle/Resources/config/routing.yml"
+
+Then you can call the following URL:
+
+    [http://some.host.lo/app_dev.php/xhprof?enable=1&ttl=60](http://some.host.lo/app_dev.php/xhprof?enable=1&ttl=60)
+
+That URL accepts two parameters:
+
+* enable: Whether to enable or disable XPhrof. The values could be `0` for disabled and `1` for enabled.
+* ttl: Time To Live. A value in seconds specifying for how long XHProf should be enabled.
