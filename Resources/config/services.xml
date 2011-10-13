@@ -28,10 +28,5 @@
             <argument>%jns.xhprof.apc_key%</argument>
         </service>
 
-        <!-- Routes Loader -->
-        <service id="xhprof.routing.loader" class="Jns\Bundle\XhprofBundle\Routing\XhprofLoader">
-            <tag name="routing.loader" />
-        </service>
-
     </services>
 </container>
