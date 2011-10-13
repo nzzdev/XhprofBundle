@@ -11,6 +11,8 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
+use Jns\Bundle\XhprofBundle\Helper\XhprofHelper;
+
 /**
  * RequestListener.
  *
@@ -21,18 +23,19 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 class RequestListener
 {
     protected $logger;
-    protected $apc_key;
+    protected $xhprofHelper;
 
-    public function __construct(LoggerInterface $logger = null, $apc_key)
+    public function __construct(LoggerInterface $logger = null, $xhprofHelper)
     {
         $this->logger = $logger;
-        $this->apc_key = $apc_key;
+        $this->xhprofHelper = $xhprofHelper;
     }
 
     public function onCoreRequest(GetResponseEvent $event)
     {
         if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {
-            if ($this->enableXhprof())
+            //TODO add a configurable way to enable XHprof, probably a service and an Interface with enableXhprof.
+            if ($this->xhprofHelper->enableXhprof())
             {
                 xhprof_enable();
             }
@@ -40,18 +43,6 @@ class RequestListener
             {
                 $this->logger->debug('Enabled XHProf');
             }
-        }
-    }
-
-    protected function enableXhprof()
-    {
-        if (function_exists('apc_fetch'))
-        {
-            return true === apc_fetch($this->apc_key);
-        }
-        else
-        {
-            return false;
         }
     }
 }
