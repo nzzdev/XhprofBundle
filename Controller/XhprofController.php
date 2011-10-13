@@ -14,6 +14,7 @@ class XhprofController
         $this->apc_key = $apc_key;
     }
 
+    //TODO create a class that handles enabling from different sources, not APC only.
     public function activateAction(Request $request)
     {
         $enable = $request->query->get('enable', true);
@@ -21,9 +22,9 @@ class XhprofController
 
         if (function_exists('apc_store'))
         {
-            if (true === apc_store($this->apc_key, $enable, $ttl))
+            if (true === apc_store($this->apc_key, (bool) $enable, $ttl))
             {
-                $content = "XHProf enabled via APC.";
+                $content = sprintf("XHProf %s via APC.", $enable ? 'enabled' : 'disabled');
             } 
             else
             {
@@ -32,9 +33,9 @@ class XhprofController
         }
         else
         {
-            $content = "Can't enable XHProf via APC.";
+            $content = "Can't enable XHProf via APC. APC not installed.";
         }
         
-        return new Response($content);
+        return new Response($content, 200, array('Content-Type' => 'text/plain'));
     }
 }
