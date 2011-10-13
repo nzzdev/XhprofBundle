@@ -17,7 +17,7 @@ class XhprofController
     //TODO create a class that handles enabling from different sources, not APC only.
     public function activateAction(Request $request)
     {
-        $enable = $request->query->get('enable', true);
+        $enable = $request->query->get('enable', false);
         $ttl = $request->query->get('ttl', 0);
 
         if (function_exists('apc_store'))
