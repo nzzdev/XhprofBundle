@@ -17,9 +17,7 @@ class XhprofHelper
         {
             return true === apc_fetch($this->apc_key);
         }
-        else
-        {
-            return false;
-        }
+
+        return false;
     }
 }
