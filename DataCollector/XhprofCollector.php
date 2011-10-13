@@ -47,7 +47,7 @@ class XhprofCollector extends DataCollector
             {
                 $xhprof_runs = new XHProfRuns_Default('/tmp');
                 $run_id = $xhprof_runs->save_run($xhprof_data, $request->get('_route', 'default'));
-            } 
+            }
             else
             {
                 $this->logger->debug('XHProf collected data was empty');
