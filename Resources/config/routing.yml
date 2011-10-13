@@ -1,3 +1,3 @@
 _some:
     pattern:   /xhprof
-    defaults:  { _controller:  xhprof.controller:activateAction _method: GET}
+    defaults:  { _controller:  xhprof.controller:activateAction, _method: GET}
