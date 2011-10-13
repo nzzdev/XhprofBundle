@@ -68,7 +68,6 @@ defining the following settings in your config. The config is usually located at
         location_lib:   /opt/local/www/php5-xhprof/xhprof_lib/utils/xhprof_lib.php
         location_runs:  /opt/local/www/php5-xhprof/xhprof_lib/utils/xhprof_runs.php
         location_web:   http://xhprof.localhost
-        enabled:        true
 
 [1]: http://mirror.facebook.net/facebook/xhprof/doc.html
 [2]: http://www.macports.org/
@@ -88,3 +87,12 @@ That URL accepts two parameters:
 
 * enable: Whether to enable or disable XPhrof. The values could be `0` for disabled and `1` for enabled.
 * ttl: Time To Live. A value in seconds specifying for how long XHProf should be enabled.
+
+## TODO
+
+* Add way to choose which XHProf helper to use (to not enable only via APC).
+* Implement a helper that has the old behavior (Always enables XHProf).
+* Implement helper function to return profile type string. (As of now it uses the route name).
+* Implement profile location parameter. (Now uses `/tmp` by default).
+
+
