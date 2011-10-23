@@ -38,4 +38,11 @@ class XhprofController
         
         return new Response($content, 200, array('Content-Type' => 'text/plain'));
     }
+
+    public function statusAction()
+    {
+        $status = true === apc_fetch($this->apc_key) ? 'enabled' : 'disabled';
+        $content = sprintf('XHProf is currently %s', $status);
+        return new Response($content, 200, array('Content-Type' => 'text/plain'));
+    }
 }

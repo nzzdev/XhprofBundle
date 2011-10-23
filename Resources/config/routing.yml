@@ -1,3 +1,7 @@
+_xhprof_status:
+    pattern:   /xhprof/status
+    defaults:  { _controller:  xhprof.controller:statusAction, _method: GET}
+
 _xhprof:
     pattern:   /xhprof
     defaults:  { _controller:  xhprof.controller:activateAction, _method: GET}
