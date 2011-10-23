@@ -11,9 +11,9 @@
     <services>
         <!--  Request Listener -->
         <service id="xhprof_listener" class="Jns\Bundle\XhprofBundle\RequestListener">
-            <tag name="kernel.event_listener" event="kernel.request" method="onCoreRequest" priority="0" />
-            <argument type="service" id="logger" on-invalid="null" />
-            <argument type="service" id="xhprof.helper" />
+            <tag name="kernel.event_listener" event="kernel.response" method="onCoreResponse" priority="-10000" />
+            <tag name="kernel.event_listener" event="kernel.request" method="onCoreRequest" priority="10000" />
+            <argument type="service" id="data_collector.xhprof" />
         </service>
 
         <!--  Data Collector -->
