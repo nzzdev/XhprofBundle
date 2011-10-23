@@ -40,7 +40,7 @@ class XhprofCollector extends DataCollector
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {
         if (!$this->runId) {
-            $this->stopProfiling($request->get('_route', 'default'));
+            $this->stopProfiling();
         }
 
         $this->data = array(
@@ -61,7 +61,7 @@ class XhprofCollector extends DataCollector
         }
     }
 
-    public function stopProfiling($currentRoute)
+    public function stopProfiling()
     {
         //TODO: Needed only if using preinheimer fork.
         // global $_xhprof;
@@ -85,7 +85,7 @@ class XhprofCollector extends DataCollector
             if (!empty($xhprof_data))
             {
                 $xhprof_runs = new XHProfRuns_Default('/tmp');
-                $this->runId = $xhprof_runs->save_run($xhprof_data, $currentRoute);
+                $this->runId = $xhprof_runs->save_run($xhprof_data, $this->getCurrentRoute());
             }
             else
             {
@@ -126,5 +126,10 @@ class XhprofCollector extends DataCollector
     public function getXhprofUrl()
     {
         return $this->data['xhprof_url'] . '?run=' . $this->data['xhprof'] . '&source=Symfony';
+    }
+
+    protected function getCurrentRoute()
+    {
+        return 'Symfony'; //$request->get('_route', 'default');
     }
 }
