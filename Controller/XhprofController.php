@@ -7,11 +7,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class XhprofController
 {
-    protected $apc_key;
+    protected $xhprofHelper;
 
-    public function __construct($apc_key)
+    public function __construct($xhprofHelper)
     {
-        $this->apc_key = $apc_key;
+        $this->xhprofHelper = $xhprofHelper;
     }
 
     //TODO create a class that handles enabling from different sources, not APC only.
@@ -20,28 +20,16 @@ class XhprofController
         $enable = $request->query->get('enable', false);
         $ttl = $request->query->get('ttl', 0);
 
-        if (function_exists('apc_store'))
-        {
-            if (true === apc_store($this->apc_key, (bool) $enable, $ttl))
-            {
-                $content = sprintf("XHProf %s via APC.", $enable ? 'enabled' : 'disabled');
-            } 
-            else
-            {
-                $content = "Can't enable xhprof via APC.";
-            }
-        }
-        else
-        {
-            $content = "Can't enable XHProf via APC. APC not installed.";
-        }
-        
+        $xhprofEnabled = $this->xhprofHelper->toggleXhprofStatus($enable, $ttl);
+
+        $content = sprintf("XHProf %s via APC.", $xhprofEnabled ? 'enabled' : 'disabled');
+
         return new Response($content, 200, array('Content-Type' => 'text/plain'));
     }
 
     public function statusAction()
     {
-        $status = true === apc_fetch($this->apc_key) ? 'enabled' : 'disabled';
+        $status = $this->xhprofHelper->xhprofEnabled() ? 'enabled' : 'disabled';
         $content = sprintf('XHProf is currently %s', $status);
         return new Response($content, 200, array('Content-Type' => 'text/plain'));
     }

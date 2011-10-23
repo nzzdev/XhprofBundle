@@ -51,7 +51,7 @@ class XhprofCollector extends DataCollector
 
     public function startProfiling()
     {
-        if ($this->xhprofHelper->enableXhprof())
+        if ($this->xhprofHelper->xhprofEnabled())
         {
             $this->profiling = true;
             xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
@@ -66,8 +66,8 @@ class XhprofCollector extends DataCollector
         //TODO: Needed only if using preinheimer fork.
         // global $_xhprof;
 
-        //TODO add a configurable way to enable XHprof, probably a service and an Interface with enableXhprof.
-        if ($this->xhprofHelper->enableXhprof())
+        //TODO add a configurable way to enable XHprof, probably a service and an Interface with xhprofEnabled.
+        if ($this->xhprofHelper->xhprofEnabled())
         {
             if (!$this->profiling) {
                 return;

@@ -26,7 +26,7 @@
 
         <!--  Controller used to enable/disable XHProf -->
         <service id="xhprof.controller" class="Jns\Bundle\XhprofBundle\Controller\XhprofController">
-            <argument>%jns.xhprof.apc_key%</argument>
+            <argument type="service" id="xhprof.helper" />
         </service>
 
         <service id="xhprof.helper" class="Jns\Bundle\XhprofBundle\Helper\XhprofHelper">
