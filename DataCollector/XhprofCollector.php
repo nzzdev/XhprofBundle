@@ -130,6 +130,6 @@ class XhprofCollector extends DataCollector
 
     protected function getCurrentRoute()
     {
-        return 'Symfony'; //$request->get('_route', 'default');
+        return $this->container->get('request')->get('_route', 'Symfony');
     }
 }
